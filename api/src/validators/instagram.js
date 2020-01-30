@@ -1,5 +1,4 @@
 import { check } from 'express-validator';
-import { Instagram } from '../models';
 import isValidPath from 'is-valid-path';
 import _ from 'lodash';
 
@@ -21,4 +20,4 @@ const instagramValidator = {
   ]
 }
 
-export default userValidator;
+export default instagramValidator;

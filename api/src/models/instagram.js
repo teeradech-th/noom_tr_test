@@ -22,4 +22,4 @@ const schema = new mongoose.Schema({
 
 schema.plugin(mongoosePaginate);
 
-export default mongoose.model('User', schema);
+export default mongoose.model('Instagram', schema);
