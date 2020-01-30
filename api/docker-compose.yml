@@ -1,0 +1,38 @@
+version: "3.7"
+services:
+  mongo:
+    image: mongo:latest
+    command: --auth
+    container_name: thairath_mongo
+    restart: always
+    environment:
+      MONGO_INITDB_DATABASE: "${MONGO_DATABASE}"
+      MONGO_INITDB_ROOT_USERNAME: "${MONGO_ROOT_USERNAME}"
+      MONGO_INITDB_ROOT_PASSWORD: "${MONGO_ROOT_PASSWORD}"
+      MONGO_PORT: "${MONGO_PORT}"
+      MONGO_DATABASE: "${MONGO_DATABASE}"
+      MONGO_APP_USERNAME: "${MONGO_APP_USERNAME}"
+      MONGO_APP_PASSWORD: "${MONGO_APP_PASSWORD}"
+    ports:
+      - 27017:27017
+    volumes:
+      - ./opt/mongodb:/data/db
+      - ./Docker/mongo/:/docker-entrypoint-initdb.d/
+    networks:
+      - backend
+
+  mongo_client:
+    image: mongo-express:latest
+    container_name: thairath_mongo_client
+    restart: always
+    ports:
+      - 8081:8081
+    environment:
+      ME_CONFIG_MONGODB_SERVER: thairath_mongo
+      ME_CONFIG_MONGODB_ADMINUSERNAME: "${MONGO_ROOT_USERNAME}"
+      ME_CONFIG_MONGODB_ADMINPASSWORD: "${MONGO_ROOT_PASSWORD}"
+    networks:
+      - backend
+
+networks:
+  backend:
